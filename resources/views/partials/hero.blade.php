@@ -19,19 +19,11 @@
               Home
             </a>
             <a class="navbar-item">
-              Examples
+              About
             </a>
             <a class="navbar-item">
-              Documentation
+              Contact
             </a>
-            <span class="navbar-item">
-              <a class="button is-primary is-inverted">
-                <span class="icon">
-                  <i class="fab fa-github"></i>
-                </span>
-                <span>Download</span>
-              </a>
-            </span>
           </div>
         </div>
       </div>
@@ -42,10 +34,10 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
-        Title
+        @yield('title')
       </h1>
       <h2 class="subtitle">
-        Subtitle
+        @yield('subtitle', 'This is where you learn about Backend')
       </h2>
     </div>
   </div>
