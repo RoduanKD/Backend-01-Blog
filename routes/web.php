@@ -14,7 +14,7 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::view('/', 'pages.welcome');
-Route::view('/about', 'pages.about');
-Route::view('/contact', 'pages.contact');
-Route::get('/posts', [PostController::class, 'index']);
+Route::view('/', 'pages.welcome')->name('home');
+Route::view('/about', 'pages.about')->name('about');
+Route::view('/contact', 'pages.contact')->name('contact');
+Route::resource('/posts', PostController::class);

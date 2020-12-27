@@ -15,13 +15,16 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <a class="navbar-item is-active">
+            <a class="navbar-item is-active" href="{{ route('home') }}">
               Home
             </a>
-            <a class="navbar-item">
+            <a class="navbar-item" href="{{ route('posts.index') }}">
+              Blog Posts
+            </a>
+            <a class="navbar-item" href="{{ route('about') }}">
               About
             </a>
-            <a class="navbar-item">
+            <a class="navbar-item" href="{{ route('contact') }}">
               Contact
             </a>
           </div>
