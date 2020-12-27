@@ -9,7 +9,9 @@
   </head>
   <body>
     @include('partials.hero')
-    @yield('content')
+    <section class="section">
+      @yield('content')
+    </section>
 
     @include('partials.footer')
     @yield('script')
