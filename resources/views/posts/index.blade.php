@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-  <div class="columns">
+  <div class="columns is-multiline">
     @foreach ($posts as $post)
     <div class="column is-4">
       <div class="card">
