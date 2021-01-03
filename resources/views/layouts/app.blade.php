@@ -9,6 +9,7 @@
   </head>
   <body>
     @include('partials.hero')
+    @include('partials.messages')
     <section class="section">
       @yield('content')
     </section>

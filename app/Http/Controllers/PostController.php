@@ -48,8 +48,12 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->featured_image = $request->featured_image;
         
-        $post->save();
-
+        if($post->save()) {
+            request()->session()->flash('success', 'Post was created successfully.');
+        } else {
+            request()->session()->flash('danger', 'Something went wrong.');
+        }
+        
         return redirect()->route('posts.index');
     }
 
