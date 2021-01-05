@@ -65,7 +65,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         return view('posts.show', ['post' => $post]);
     }
 
@@ -77,7 +77,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -89,7 +91,25 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title'             => 'required|string|min:4|max:255',
+            'content'           => 'required|string|min:15',
+            'featured_image'    => 'required|active_url',
+        ]);
+
+        $post = Post::find($id);
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->featured_image = $request->featured_image;
+
+        if($post->save()) {
+            request()->session()->flash('success', 'Post was updated successfully.');
+        } else {
+            request()->session()->flash('danger', 'Something went wrong.');
+        }
+        
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -100,6 +120,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::destroy($id);
+
+        request()->session()->flash('danger', 'Post was Deleted successfully.');
+
+        return redirect()->route('posts.index');
     }
 }
