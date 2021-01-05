@@ -54,7 +54,7 @@ class PostController extends Controller
             request()->session()->flash('danger', 'Something went wrong.');
         }
         
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
