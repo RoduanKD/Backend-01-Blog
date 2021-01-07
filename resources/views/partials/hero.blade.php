@@ -4,8 +4,8 @@
     <nav class="navbar">
       <div class="container">
         <div class="navbar-brand">
-          <a class="navbar-item">
-            <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
+          <a class="navbar-item" href="{{ route('home') }}">
+            <img src="https://logos-download.com/wp-content/uploads/2016/09/Laravel_logo_wordmark_logotype.png" style="filter: brightness(0) invert(1)" alt="Logo">
           </a>
           <span class="navbar-burger" data-target="navbarMenuHeroA">
             <span></span>
@@ -15,16 +15,19 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <a class="navbar-item is-active" href="{{ route('home') }}">
+            <a class="navbar-item {{ Route::currentRouteName() == 'home' ? 'is-active':'' }}" href="{{ route('home') }}">
               Home
             </a>
-            <a class="navbar-item" href="{{ route('posts.index') }}">
+            <a class="navbar-item {{ Route::currentRouteName() == 'posts.index' ? 'is-active':'' }}" href="{{ route('posts.index') }}">
               Blog Posts
             </a>
-            <a class="navbar-item" href="{{ route('about') }}">
+            <a class="navbar-item {{ Route::currentRouteName() == 'posts.create' ? 'is-active':'' }}" href="{{ route('posts.create') }}">
+              Create Post
+            </a>
+            <a class="navbar-item {{ Route::currentRouteName() == 'about' ? 'is-active':'' }}" href="{{ route('about') }}">
               About
             </a>
-            <a class="navbar-item" href="{{ route('contact') }}">
+            <a class="navbar-item {{ Route::currentRouteName() == 'contact' ? 'is-active':'' }}" href="{{ route('contact') }}">
               Contact
             </a>
           </div>
