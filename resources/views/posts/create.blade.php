@@ -14,6 +14,16 @@
                 </div>
             </div>
             <div class="field">
+                <label class="label">Slug</label>
+                <div class="control">
+                    <input class="input {{ $errors->has('slug') ? 'is-danger':'' }}" type="text" name="slug" placeholder="Post Slug ..." value="{{ old('slug') }}">
+                    <p class="help">a slug is something like this https://example.com/this-is-a-slug</p>
+                    @error('slug')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+            <div class="field">
                 <label class="label">Featured Image URL</label>
                 <div class="control">
                     <input class="input {{ $errors->has('featured_image') ? 'is-danger':'' }}" type="text" name="featured_image" placeholder="https://www.domain.com/test-image.jpg" value="{{ old('featured_image') }}">

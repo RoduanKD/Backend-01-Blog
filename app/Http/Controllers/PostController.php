@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(3);
+        $posts = Post::paginate(6);
 
         return view('posts.index', ['posts' => $posts]);
     }
@@ -40,12 +40,14 @@ class PostController extends Controller
         $request->validate([
             'title'             => 'required|string|min:4|max:255',
             'content'           => 'required|string|min:15',
+            'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts',
             'featured_image'    => 'required|active_url',
         ]);
 
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
+        $post->slug = $request->slug;
         $post->featured_image = $request->featured_image;
         
         if($post->save()) {
@@ -54,7 +56,7 @@ class PostController extends Controller
             request()->session()->flash('danger', 'Something went wrong.');
         }
         
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->slug);
     }
 
     /**
@@ -65,7 +67,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::where('slug', $id)->firstOrFail();
         return view('posts.show', ['post' => $post]);
     }
 
@@ -94,6 +96,7 @@ class PostController extends Controller
         $request->validate([
             'title'             => 'required|string|min:4|max:255',
             'content'           => 'required|string|min:15',
+            'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts,slug,'.$id,
             'featured_image'    => 'required|active_url',
         ]);
 
@@ -101,6 +104,7 @@ class PostController extends Controller
 
         $post->title = $request->title;
         $post->content = $request->content;
+        $post->slug = $request->slug;
         $post->featured_image = $request->featured_image;
 
         if($post->save()) {
@@ -109,7 +113,7 @@ class PostController extends Controller
             request()->session()->flash('danger', 'Something went wrong.');
         }
         
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->slug);
     }
 
     /**
