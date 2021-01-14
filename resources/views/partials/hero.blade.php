@@ -1,7 +1,7 @@
 <section class="hero is-primary is-medium">
   <!-- Hero head: will stick at the top -->
   <div class="hero-head">
-    <nav class="navbar">
+    <nav class="navbar is-primary">
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item" href="{{ route('home') }}">
@@ -30,6 +30,26 @@
             <a class="navbar-item {{ Route::currentRouteName() == 'contact' ? 'is-active':'' }}" href="{{ route('contact') }}">
               Contact
             </a>
+            @if (Auth::guest())
+              <a class="navbar-item " href="{{ route('login') }}">Login</a>
+              <a class="navbar-item " href="{{ route('register') }}">Register</a>
+            @else
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">{{ Auth::user()->name }}</a>
+
+                <div class="navbar-dropdown">
+                  <a class="navbar-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                      Logout
+                  </a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                        style="display: none;">
+                      {{ csrf_field() }}
+                  </form>
+                </div>
+              </div>
+            @endif
           </div>
         </div>
       </div>
