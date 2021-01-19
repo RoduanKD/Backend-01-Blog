@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -26,7 +27,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create', ['categories' => $categories]);
     }
 
     /**
@@ -42,12 +45,14 @@ class PostController extends Controller
             'content'           => 'required|string|min:15',
             'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts',
             'featured_image'    => 'required|active_url',
+            'category_id'       => 'required|exists:categories,id'
         ]);
 
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
         $post->slug = $request->slug;
+        $post->category_id = $request->category_id;
         $post->featured_image = $request->featured_image;
         
         if($post->save()) {

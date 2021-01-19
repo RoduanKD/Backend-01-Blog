@@ -14,6 +14,21 @@
                 </div>
             </div>
             <div class="field">
+                <label class="label">Category</label>
+                <div class="control">
+                  <div class="select">
+                    <select name="category_id">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  @error('category_id')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+              </div>
+            <div class="field">
                 <label class="label">Slug</label>
                 <div class="control">
                     <input class="input {{ $errors->has('slug') ? 'is-danger':'' }}" type="text" name="slug" placeholder="Post Slug ..." value="{{ old('slug') }}">
