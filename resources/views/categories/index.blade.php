@@ -5,24 +5,19 @@
 @section('content')
 <div class="container">
   <div class="columns is-multiline">
-    @foreach ($posts as $post)
+    @foreach ($categories as $category)
     <div class="column is-4">
-      <a href="{{ route('posts.show', $post->slug) }}">
+      <a href="{{ route('categories.show', $category->name) }}">
         <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="{{ $post->featured_image }}" alt="Placeholder image">
-            </figure>
-          </div>
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <p class="title is-4">{{ $post->title }}</p>
+                <p class="title is-4">{{ $category->name }}</p>
               </div>
             </div>
         
             <div class="content">
-              {{ $post->content }}
+              {{ $category->discription }}
             </div>
           </div>
         </div>
@@ -30,6 +25,6 @@
     </div>
     @endforeach
   </div>
-  {{ $posts->links() }}
+  {{ $categories->links() }}
 </div>
 @endsection
