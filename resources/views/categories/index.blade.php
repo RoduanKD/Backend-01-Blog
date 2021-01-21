@@ -7,7 +7,7 @@
   <div class="columns is-multiline">
     @foreach ($categories as $category)
     <div class="column is-4">
-      <a href="{{ route('categories.show', $category->name) }}">
+      <a href="{{ route('categories.show', $category->id) }}">
         <div class="card">
           <div class="card-content">
             <div class="media">

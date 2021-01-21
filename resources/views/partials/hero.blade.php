@@ -34,7 +34,7 @@
               create category
             </a>
             <a class="navbar-item {{ Route::currentRouteName() == 'categories.index' ? 'is-active':'' }}" href="{{ route('categories.index') }}">
-              category
+             bolg category
             </a>
             @if (Auth::guest())
             <a class="navbar-item " href="{{ route('login') }}">Login</a>
