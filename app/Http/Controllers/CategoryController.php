@@ -50,7 +50,7 @@ class CategoryController extends Controller
         else
             request()->session()->flash('danger', 'Something went wrong.');
         
-        return redirect()->route('home');
+        return redirect()->route('categories.index');
     }
 
     /**
