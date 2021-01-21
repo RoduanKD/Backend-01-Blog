@@ -18,8 +18,8 @@ use App\Http\Controllers\CategoryController;
 Route::view('/', 'pages.welcome')->name('home');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
-Route::resource('/posts', PostController::class);
-Route::resource('/categories', CategoryController::class);
+Route::resource('/posts', PostController::class)->middleware('auth');
+Route::resource('/categories', CategoryController::class)->middleware('auth');
 
 Auth::routes();
 

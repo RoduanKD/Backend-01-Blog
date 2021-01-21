@@ -18,23 +18,25 @@
             <a class="navbar-item {{ Route::currentRouteName() == 'home' ? 'is-active':'' }}" href="{{ route('home') }}">
               Home
             </a>
+            @if (!Auth::guest())
             <a class="navbar-item {{ Route::currentRouteName() == 'posts.index' ? 'is-active':'' }}" href="{{ route('posts.index') }}">
               Blog Posts
             </a>
             <a class="navbar-item {{ Route::currentRouteName() == 'posts.create' ? 'is-active':'' }}" href="{{ route('posts.create') }}">
               Create Post
             </a>
-            <a class="navbar-item {{ Route::currentRouteName() == 'about' ? 'is-active':'' }}" href="{{ route('about') }}">
-              About
-            </a>
-            <a class="navbar-item {{ Route::currentRouteName() == 'contact' ? 'is-active':'' }}" href="{{ route('contact') }}">
-              Contact
-            </a>
             <a class="navbar-item {{ Route::currentRouteName() == 'categories.create' ? 'is-active':'' }}" href="{{ route('categories.create') }}">
               create category
             </a>
             <a class="navbar-item {{ Route::currentRouteName() == 'categories.index' ? 'is-active':'' }}" href="{{ route('categories.index') }}">
              Bolg category
+            </a>
+            @endif
+            <a class="navbar-item {{ Route::currentRouteName() == 'about' ? 'is-active':'' }}" href="{{ route('about') }}">
+              About
+            </a>
+            <a class="navbar-item {{ Route::currentRouteName() == 'contact' ? 'is-active':'' }}" href="{{ route('contact') }}">
+              Contact
             </a>
             @if (Auth::guest())
             <a class="navbar-item " href="{{ route('login') }}">Login</a>

@@ -23,7 +23,7 @@
              <form action="{{ route('categories.destroy', $category->id) }}" method="post">
             @csrf
             <input type="hidden" name="_method" value="DELETE">
-            <input class="button is-danger" type="submit" value="Delete Post">
+            <input class="button is-danger" type="submit" value="Delete category">
              </form>
             </div>
         </div>
