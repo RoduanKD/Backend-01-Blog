@@ -76,6 +76,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         // TODO implement this
+        return view('categories.edit', ['category' => $category]);
         // TODO Create the view
     }
 
@@ -89,6 +90,17 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         // TODO implement this
+        $request->validate([
+            'name'             => 'required|string|min:2|max:255',
+            'description'      => 'required|string|min:15',
+        ]);
+        $category = Category::create($request->only(['name', 'description']));
+        if ($category)
+        request()->session()->flash('success', 'Category was created successfully.');
+    else
+        request()->session()->flash('danger', 'Something went wrong.');
+    
+    return redirect()->route('categories.index');
     }
 
     /**
