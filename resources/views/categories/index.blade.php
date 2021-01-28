@@ -1,35 +1,32 @@
 @extends('layouts.app')
 
-@section('title', 'Recent Posts')
+@section('name', 'Recent categories')
 
 @section('content')
 <div class="container">
   <div class="columns is-multiline">
-    @foreach ($posts as $post)
-    <div class="column is-4">
-      <a href="{{ route('posts.show', $post->slug) }}">
+    @foreach ($categories as $category)
+    <div class="column is-6">
+      <a href="{{ route('categories.show', $category->id) }}">
         <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="{{ $post->featured_image }}" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4">{{ $post->title }}</p>
-              </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="name is-">{{ $category->name }}</p>
+                    </div>
+                </div>
+                <div class="content">
+                    {{ $category->description }}
+                    <br>
+                    <time datetime="2016-1-1">created_at : {{ $category->created_at }}</time>
+                </div>
             </div>
-        
-            <div class="content">
-              {{ $post->content }}
-            </div>
-          </div>
         </div>
       </a>
     </div>
     @endforeach
   </div>
-  {{ $posts->links() }}
+  {{ $categories->links() }}
 </div>
 @endsection
+

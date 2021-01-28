@@ -54,13 +54,13 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->category_id = $request->category_id;
         $post->featured_image = $request->featured_image;
-        
+
         if($post->save()) {
             request()->session()->flash('success', 'Post was created successfully.');
         } else {
             request()->session()->flash('danger', 'Something went wrong.');
         }
-        
+
         return redirect()->route('posts.show', $post->slug);
     }
 
@@ -103,6 +103,7 @@ class PostController extends Controller
             'content'           => 'required|string|min:15',
             'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts,slug,'.$id,
             'featured_image'    => 'required|active_url',
+            'category_id'       => 'required|exists:categories,id'
         ]);
 
         $post = Post::find($id);
@@ -110,6 +111,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->content = $request->content;
         $post->slug = $request->slug;
+        $post->category_id = $request->category_id;
         $post->featured_image = $request->featured_image;
 
         if($post->save()) {
@@ -117,7 +119,7 @@ class PostController extends Controller
         } else {
             request()->session()->flash('danger', 'Something went wrong.');
         }
-        
+
         return redirect()->route('posts.show', $post->slug);
     }
 
