@@ -15,6 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         // TODO implement this
+        $categories = category::paginate(3);
+
+        return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -58,8 +61,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // TODO implement this
-        // TODO Create the view
+  // TODO implement this
+  $category->firstOrFail();
+  return view('categories.show', ['category' => $category]);
+  // TODO Create the view
     }
 
     /**
@@ -71,6 +76,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         // TODO implement this
+        return view('categories.edit', ['category' => $category]);
         // TODO Create the view
     }
 
@@ -83,7 +89,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        // TODO implement this
+         // TODO implement this
+         $request->validate([
+            'name'             => 'required|string|min:2|max:255',
+            'description'      => 'required|string|min:15',
+        ]);
+        //$category = Category::update($request->only(['name', 'description']));
+        $category->name=$request->name;
+        $category->description=$request->description;
+        $category->save();
+        if ($category)
+        request()->session()->flash('success', 'Category was created successfully.');
+    else
+        request()->session()->flash('danger', 'Something went wrong.');
+    
+    return redirect()->route('categories.index');
     }
 
     /**
@@ -94,6 +114,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        // TODO implement this
+          // TODO implement this
+          $category = category::destroy($category->id);
+          request()->session()->flash('danger', 'category was Deleted successfully.');
+  
+          return redirect()->route('categories.index');
     }
 }
