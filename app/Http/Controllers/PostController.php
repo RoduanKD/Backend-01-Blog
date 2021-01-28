@@ -42,14 +42,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'title'             => 'required|string|min:4|max:255',
             'content'           => 'required|string|min:15',
             'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts',
             'featured_image'    => 'required|active_url',
             'category_id'       => 'required|exists:categories,id',
-            'tags'              => 'required|array|min:1'
+            'tags'              => 'required|array'
         ]);
 
 
@@ -91,9 +90,14 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $categories = Category::all();
         $tags = Tag::all();
 
-        return view('posts.edit', ['post' => $post, 'tags' => $tags]);
+        return view('posts.edit', [
+            'post' => $post,
+            'categories' => $categories,
+            'tags' => $tags
+        ]);
     }
 
     /**
@@ -110,6 +114,8 @@ class PostController extends Controller
             'content'           => 'required|string|min:15',
             'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts,slug,'.$id,
             'featured_image'    => 'required|active_url',
+            'category_id'       => 'required|exists:categories,id',
+            'tags'              => 'required|array|min:1'
         ]);
 
         $post = Post::find($id);
@@ -118,7 +124,9 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->slug = $request->slug;
         $post->featured_image = $request->featured_image;
-
+        $post->category_id = $request->category_id;
+        $post->tags()->sync($request->tags);
+        
         if($post->save()) {
             request()->session()->flash('success', 'Post was updated successfully.');
         } else {
@@ -137,6 +145,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::destroy($id);
+        // TODO remove all relations before deleting
 
         request()->session()->flash('danger', 'Post was Deleted successfully.');
 

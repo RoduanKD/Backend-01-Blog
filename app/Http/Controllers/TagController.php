@@ -14,7 +14,10 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::paginate(10);
+        return view('tags.index', [
+            'tags'  => $tags
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        // TODO
     }
 
     /**
@@ -35,7 +38,7 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO
     }
 
     /**
@@ -46,7 +49,11 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        // $posts = $tag->posts;
+        return view('tags.show', [
+            'tag' => $tag,
+            // 'posts' => $posts
+        ]);
     }
 
     /**
@@ -57,7 +64,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        // TODO
     }
 
     /**
@@ -69,7 +76,7 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        // TODO
     }
 
     /**
@@ -80,6 +87,11 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->posts()->sync([]);
+        $tag->delete();
+
+        request()->session()->flash('danger', 'Tag was Deleted successfully.');
+
+        return redirect()->route('tags.index');
     }
 }
