@@ -21,9 +21,18 @@
                 <p class="subtitle is-6">{{ $post->category->name }}</p>
               </div>
             </div>
-        
+            
             <div class="content">
               {{ $post->content }}
+            </div>
+            <div class="card-footer">
+              <div class="content pt-5">
+                <div class="tags">
+                  @foreach ($post->tags as $tag)
+                  <span class="tag is-primary">{{ $tag->name }}</span>
+                  @endforeach
+                </div>
+              </div>
             </div>
           </div>
         </div>

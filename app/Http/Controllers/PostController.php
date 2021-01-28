@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -28,8 +29,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('posts.create', ['categories' => $categories]);
+        return view('posts.create', ['categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -40,13 +42,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'title'             => 'required|string|min:4|max:255',
             'content'           => 'required|string|min:15',
             'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts',
             'featured_image'    => 'required|active_url',
-            'category_id'       => 'required|exists:categories,id'
+            'category_id'       => 'required|exists:categories,id',
+            'tags'              => 'required|array|min:1'
         ]);
+
 
         $post = new Post();
         $post->title = $request->title;
@@ -56,6 +61,7 @@ class PostController extends Controller
         $post->featured_image = $request->featured_image;
         
         if($post->save()) {
+            $post->tags()->attach($request->tags);
             request()->session()->flash('success', 'Post was created successfully.');
         } else {
             request()->session()->flash('danger', 'Something went wrong.');
@@ -85,8 +91,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $tags = Tag::all();
 
-        return view('posts.edit', ['post' => $post]);
+        return view('posts.edit', ['post' => $post, 'tags' => $tags]);
     }
 
     /**

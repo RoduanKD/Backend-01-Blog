@@ -27,7 +27,23 @@
                         <p class="help is-danger">{{ $message }}</p>
                     @enderror
                 </div>
-              </div>
+            </div>
+            <div class="field">
+                <label class="label">Tags</label>
+                <div class="control">
+                  <div class="select is-multiple">
+                    <select name="tags[]" multiple>
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <p class="help">Click and hold ctrl key to select multiple tags</p>
+                  @error('tags')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
             <div class="field">
                 <label class="label">Slug</label>
                 <div class="control">

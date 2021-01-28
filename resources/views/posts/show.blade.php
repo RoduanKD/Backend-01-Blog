@@ -11,6 +11,11 @@
             <div class="column is-6">
                 <h3 class="title is-3">{{ $post->title }}</h3>
                 <h3 class="subtitle is-5">{{ $post->category->name }}</h3>
+                <div class="tags">
+                    @foreach ($post->tags as $tag)
+                    <span class="tag is-primary">{{ $tag->name }}</span>
+                    @endforeach
+                </div>
                 <div class="content">
                     {{ $post->content }}
                 </div>
