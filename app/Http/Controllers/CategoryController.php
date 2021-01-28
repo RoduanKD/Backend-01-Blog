@@ -15,6 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         // TODO implement this
+        $categories = Category::paginate(6);
+
+        return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -36,17 +39,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'             => 'required|string|min:2|max:255',
+            'name'             => 'required|string|min:2|max:255|unique:categories',
             'description'      => 'required|string|min:15',
         ]);
 
         $category = Category::create($request->only(['name', 'description']));
-        
+
         if ($category)
             request()->session()->flash('success', 'Category was created successfully.');
         else
             request()->session()->flash('danger', 'Something went wrong.');
-        
+
         return redirect()->route('home');
     }
 
@@ -60,6 +63,8 @@ class CategoryController extends Controller
     {
         // TODO implement this
         // TODO Create the view
+        $category ->firstOrFail();
+        return view('categories.show', ['category' => $category]);
     }
 
     /**
@@ -72,6 +77,9 @@ class CategoryController extends Controller
     {
         // TODO implement this
         // TODO Create the view
+
+
+        return view('categories.edit', ['category' => $category]);
     }
 
     /**
@@ -84,6 +92,19 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         // TODO implement this
+        $request->validate([
+            'name'             => 'required|string|min:2|max:255|unique:categories',
+            'description'      => 'required|string|min:15',
+        ]);
+
+        $category = Category::create($request->only(['name', 'description']));
+
+        if ($category)
+            request()->session()->flash('success', 'Category was updated successfully.');
+        else
+            request()->session()->flash('danger', 'Something went wrong.');
+
+        return redirect()->route('home');
     }
 
     /**
@@ -95,5 +116,10 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         // TODO implement this
+        $category = Category::destroy($category->id);
+
+        request()->session()->flash('danger', 'Category was Deleted successfully.');
+
+        return redirect()->route('categories.index');
     }
 }
