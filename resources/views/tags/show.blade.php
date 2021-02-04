@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Recent Posts')
+@section('title', $tag->name . '\'s Posts')
 
 @section('content')
 <div class="container">
   <div class="columns is-multiline">
-    @foreach ($posts as $post)
+    @foreach ($tag->posts as $post)
     <div class="column is-4">
       <a href="{{ route('posts.show', $post->slug) }}">
         <div class="card">
@@ -40,6 +40,6 @@
     </div>
     @endforeach
   </div>
-  {{ $posts->links() }}
+  {{-- {{ $posts->links() }} --}}
 </div>
 @endsection

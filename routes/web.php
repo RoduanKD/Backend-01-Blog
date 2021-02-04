@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,9 @@ use App\Http\Controllers\CategoryController;
 Route::view('/', 'pages.welcome')->name('home');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
-Route::resource('/posts', PostController::class)->middleware('auth');
-Route::resource('/categories', CategoryController::class)->middleware('auth');
+Route::resource('/posts', PostController::class);
+Route::resource('/categories', CategoryController::class);
+Route::resource('/tags', TagController::class)->middleware('auth');
 
 Auth::routes();
 

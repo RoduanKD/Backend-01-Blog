@@ -17,37 +17,6 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">Category</label>
-                <div class="control">
-                  <div class="select">
-                    <select name="category_id">
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected':'' }}>{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                  </div>
-                  @error('category_id')
-                        <p class="help is-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Tags</label>
-                <div class="control">
-                  <div class="select is-multiple">
-                    <select name="tags[]" multiple>
-                        @foreach ($tags as $tag)
-                            <option value="{{ $tag->id }}" {{ in_array($tag->id, $post->tags->pluck('id')->toArray()) ? 'selected':'' }}>{{ $tag->name }}</option>
-                        @endforeach
-                    </select>
-                  </div>
-                  <p class="help">Click and hold ctrl key to select multiple tags</p>
-                  @error('tags')
-                        <p class="help is-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
-            <div class="field">
                 <label class="label">Slug</label>
                 <div class="control">
                     <input class="input {{ $errors->has('slug') ? 'is-danger':'' }}" type="text" name="slug" placeholder="Post Slug ..." value="{{ old('slug') ?? $post->slug }}">
