@@ -18,12 +18,20 @@
             <a class="navbar-item {{ Route::currentRouteName() == 'home' ? 'is-active':'' }}" href="{{ route('home') }}">
               Home
             </a>
+            @if (!Auth::guest())
             <a class="navbar-item {{ Route::currentRouteName() == 'posts.index' ? 'is-active':'' }}" href="{{ route('posts.index') }}">
               Blog Posts
             </a>
             <a class="navbar-item {{ Route::currentRouteName() == 'posts.create' ? 'is-active':'' }}" href="{{ route('posts.create') }}">
               Create Post
             </a>
+            <a class="navbar-item {{ Route::currentRouteName() == 'categories.create' ? 'is-active':'' }}" href="{{ route('categories.create') }}">
+              create category
+            </a>
+            <a class="navbar-item {{ Route::currentRouteName() == 'categories.index' ? 'is-active':'' }}" href="{{ route('categories.index') }}">
+             Bolg category
+            </a>
+            @endif
             <a class="navbar-item {{ Route::currentRouteName() == 'about' ? 'is-active':'' }}" href="{{ route('about') }}">
               About
             </a>
@@ -31,12 +39,12 @@
               Contact
             </a>
             @if (Auth::guest())
-              <a class="navbar-item " href="{{ route('login') }}">Login</a>
-              <a class="navbar-item " href="{{ route('register') }}">Register</a>
+            <a class="navbar-item " href="{{ route('login') }}">Login</a>
+            <a class="navbar-item " href="{{ route('register') }}">Register</a>
             @else
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link" href="#">{{ Auth::user()->name }}</a>
-
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link" href="#">{{ Auth::user()->name }}</a>
+              
                 <div class="navbar-dropdown">
                   <a class="navbar-item" href="{{ route('logout') }}"
                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
