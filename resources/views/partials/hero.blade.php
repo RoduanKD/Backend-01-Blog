@@ -12,6 +12,18 @@
             <span></span>
             <span></span>
           </span>
+          <div class="navbar-item">
+            <form action="{{ route('search') }}" method="get">
+              <div class="field">
+                <div class="control">
+                    <input class="input" type="text" name="q" placeholder="Search ..." value="{{ old('q') }}">
+                    @error('q')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+            </form>
+          </div>
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
