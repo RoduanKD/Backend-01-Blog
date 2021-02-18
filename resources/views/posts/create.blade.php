@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('posts.store') }}" method="post">
+        <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="field">
                 <label class="label">Title</label>
@@ -54,7 +54,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="field">
+            {{-- <div class="field">
                 <label class="label">Featured Image URL</label>
                 <div class="control">
                     <input class="input {{ $errors->has('featured_image') ? 'is-danger':'' }}" type="text" name="featured_image" placeholder="https://www.domain.com/test-image.jpg" value="{{ old('featured_image') }}">
@@ -62,7 +62,23 @@
                         <p class="help is-danger">{{ $message }}</p>
                     @enderror
                 </div>
-            </div>  
+            </div> --}}
+            <div class="file">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="featured_image">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Featured Image URL, Choose a file…
+                    </span>
+                  </span>
+                </label>
+                @error('featured_image')
+                    <p class="help is-danger">{{ $message }}</p>
+                @enderror
+            </div>
             <div class="field">
                 <label class="label">Content</label>
                 <div class="control">

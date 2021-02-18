@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+// use Storage;
+use Image;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
@@ -46,7 +48,7 @@ class PostController extends Controller
             'title'             => 'required|string|min:4|max:255',
             'content'           => 'required|string|min:15',
             'slug'              => 'required|alpha_dash|min:4|max:255|unique:posts',
-            'featured_image'    => 'required|active_url',
+            'featured_image'    => 'required|file|image',
             'category_id'       => 'required|exists:categories,id',
             'tags'              => 'required|array'
         ]);
@@ -57,7 +59,17 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->slug = $request->slug;
         $post->category_id = $request->category_id;
-        $post->featured_image = $request->featured_image;
+        
+        // $path = $request->file('featured_image')->store('public/posts');
+        // $url = Storage::url($path);
+        
+        $file = $request->file('featured_image');
+        $url = '/storage/posts/' . $request->slug . '.' . $file->extension();
+        Image::make($file)
+            ->resize(300, 250)
+            ->save(public_path($url));
+
+        $post->featured_image = $url;
         
         if($post->save()) {
             $post->tags()->attach($request->tags);
